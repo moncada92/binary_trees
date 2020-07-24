@@ -1,5 +1,6 @@
 #include "binary_trees.h"
 int max(int a, int b);
+size_t height(const binary_tree_t *tree);
 
 /**
  * max - return the max value
@@ -10,7 +11,7 @@ int max(int a, int b);
 
 int max(int a, int b)
 {
-	if (a >= b)
+	if (a > b)
 	{
 		return (a);
 	}
@@ -21,6 +22,25 @@ int max(int a, int b)
 }
 
 /**
+ * height - height binary tree
+ * @tree: tree
+ * Return: height binary tree
+ */
+size_t height(const binary_tree_t *tree)
+{
+	size_t left, right;
+	int total;
+
+	if (tree == NULL)
+		return (0);
+
+	left = height(tree->left);
+	right = height(tree->right);
+	total = max(left, right) + 1;
+	return (total);
+}
+
+/**
  * binary_tree_height - print the height binary tree
  * @tree: tree for print your height
  * Return: height the tree
@@ -28,9 +48,11 @@ int max(int a, int b)
 
 size_t binary_tree_height(const binary_tree_t *tree)
 {
+	int r = 0;
+
 	if (tree == NULL)
 		return (0);
 
-	return (1 + max(height(tree->left), height(tree->right)));
-
+	r = height(tree);
+	return (r - 1);
 }
